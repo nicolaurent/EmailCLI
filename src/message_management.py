@@ -9,9 +9,9 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
-import user_management
+from src import user_management
 
-global current_message
+global current_message # message that is currently open/read
 current_message = None
 
 class Message():
@@ -33,6 +33,7 @@ def read():
 
     message = user_management.user[user_management.current_user_login].pop(0)
 
+    global current_message
     current_message = message
     response = 'from ' + str(message.sender) + ': "' + str(message.content) + '"'
     return response
@@ -62,6 +63,11 @@ def broadcast(message):
         user_management.user[u].append(new_message)
 
     return 'message is broadcasted'
+
+def reset_storage():
+    global current_message
+    current_message = None
+
 
 
 

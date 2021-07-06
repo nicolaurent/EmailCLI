@@ -8,11 +8,11 @@
 # Copyright:   (c) nicolaurent 2021
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
-import message_management
+from src import message_management
 
 global user
 user = {}
-current_user_login = None
+current_user_login = None # user who currently login
 
 def login(username):
     message = ''
@@ -29,7 +29,7 @@ def login(username):
     current_user_login = username
     message_management.current_message = None
 
-    return message
+    return username + ' logged in' + message
 
 
 def is_username_exist(username):
@@ -37,3 +37,8 @@ def is_username_exist(username):
         return True
     else:
         return False
+
+def reset_storage():
+    user = {}
+    global current_user_login
+    current_user_login = None
