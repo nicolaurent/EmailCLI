@@ -134,6 +134,27 @@ class TestClassForward():
         forward(receiver)
         assert user_management.user[receiver][0] == message_management.Message(sender, content)
 
+class TestClassBroadcast():
+    def reset_storage(self):
+        reset_storage()
+        user_management.reset_storage()
+
+    def test_broadcast(self):
+        self.reset_storage()
+        sender = 'abc'
+        user_management.current_user_login = sender
+        content = 'dummy message'
+        assert broadcast(content) == 'message is broadcasted'
+
+    def test_broadcast_content(self):
+        self.reset_storage()
+        sender = 'abc'
+        receiver = 'def'
+        user_management.current_user_login = sender
+        content = 'dummy message'
+        user_management.user[receiver] = []
+        broadcast(content)
+        assert user_management.user[receiver][0] == message_management.Message(sender, content)
 
 class TestClassMessageManagementResetStorage():
     def test_reset_storage_current_message(self):
