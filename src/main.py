@@ -95,7 +95,7 @@ def parse_command(command):
     else:
         #where command is not defined
         return 'command not found'
-
+#"""
 def main():
     while True:
         print('>-',end = ' ')
@@ -105,7 +105,7 @@ def main():
 
 """
 def main():
-    #idx = 0
+    idx = 0
     while True:
         commandTest = ['login abc',
                'login def',

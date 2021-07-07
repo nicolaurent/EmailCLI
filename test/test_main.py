@@ -60,6 +60,106 @@ class TestClassParseCommand():
         input = 'send abc "test1"'
         assert parse_command(input) == 'message sent'
 
+    def test_send_no_recipient(self):
+        self.reset_storage()
+        parse_command('login abc')
+        parse_command('login def')
+        input = 'send "test1"'
+        assert parse_command(input) == 'input command is invalid'
+
+    def test_send_no_message(self):
+        self.reset_storage()
+        parse_command('login abc')
+        parse_command('login def')
+        input = 'send abc'
+        assert parse_command(input) == 'input command is invalid'
+
+    def test_send_message_invalid(self):
+        self.reset_storage()
+        parse_command('login abc')
+        parse_command('login def')
+        input = 'send abc "test1'
+        assert parse_command(input) == 'input command is invalid'
+
+    def test_read(self):
+        self.reset_storage()
+        parse_command('login abc')
+        parse_command('send abc "test2"')
+        input = 'read'
+        assert parse_command(input) == 'from abc: "test2"'
+
+    def test_reply(self):
+        self.reset_storage()
+        parse_command('login abc')
+        parse_command('login def')
+        parse_command('send abc "test1"')
+        parse_command('login abc')
+        parse_command('read')
+        input = 'reply "replied"'
+        assert parse_command(input) == 'message sent to def'
+
+    def test_reply_no_message(self):
+        self.reset_storage()
+        parse_command('login abc')
+        parse_command('login def')
+        parse_command('send abc "test1"')
+        parse_command('login abc')
+        parse_command('read')
+        input = 'reply'
+        assert parse_command(input) == 'input command is invalid'
+
+    def test_reply_message_invalid(self):
+        self.reset_storage()
+        parse_command('login abc')
+        parse_command('login def')
+        parse_command('send abc "test1"')
+        parse_command('login abc')
+        parse_command('read')
+        input = 'reply "replied'
+        assert parse_command(input) == 'input command is invalid'
+
+    def test_forward(self):
+        self.reset_storage()
+        parse_command('login abc')
+        parse_command('login def')
+        parse_command('send abc "test1"')
+        parse_command('login abc')
+        parse_command('read')
+        input = 'forward def'
+        assert parse_command(input) == 'message forwarded to def'
+
+    def test_forward_no_recipient(self):
+        self.reset_storage()
+        parse_command('login abc')
+        parse_command('login def')
+        parse_command('send abc "test1"')
+        parse_command('login abc')
+        parse_command('read')
+        input = 'forward'
+        assert parse_command(input) == 'input command is invalid'
+
+    def test_broadcast(self):
+        self.reset_storage()
+        parse_command('login abc')
+        input = 'broadcast "hello world"'
+        assert parse_command(input) == 'message is broadcasted'
+
+    def test_broadcast_no_message(self):
+        self.reset_storage()
+        parse_command('login abc')
+        input = 'broadcast'
+        assert parse_command(input) == 'input command is invalid'
+
+    def test_broadcast_message_invalid(self):
+        self.reset_storage()
+        parse_command('login abc')
+        input = 'broadcast "hello world'
+        assert parse_command(input) == 'input command is invalid'
+
+
+
+
+
 
 
 

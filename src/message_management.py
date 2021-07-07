@@ -11,13 +11,17 @@
 
 from src import user_management
 
-global current_message # message that is currently open/read
-current_message = None
+current_message = None # message that is currently open/read
 
 class Message():
     def __init__(self, sender, content):
         self.sender = sender
         self.content = content
+
+    def __eq__(self, other):
+        if(isinstance(other, Message)):
+            return self.sender == other.sender and self.content == other.content
+        return False
 
 def send(receiver, message):
     if(not user_management.is_username_exist(receiver)):

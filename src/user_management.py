@@ -10,7 +10,6 @@
 #-------------------------------------------------------------------------------
 from src import message_management
 
-global user
 user = {}
 current_user_login = None # user who currently login
 
@@ -39,6 +38,7 @@ def is_username_exist(username):
         return False
 
 def reset_storage():
+    global user
     user = {}
     global current_user_login
     current_user_login = None
