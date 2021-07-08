@@ -14,7 +14,7 @@ This is a command line interface program that simulates email system.
 ## How to use
 ### Run Program
 #### 1. Using EXE
-Run ```emailcli.exe``` inside ```build``` directory
+Unzip ```emailcli.zip``` inside ```exe``` directory, and run ```emailcli.exe``` 
 
 #### 2. Using python
 In command prompt (or powershell), run ```python main.py``` inside ```src``` directory
